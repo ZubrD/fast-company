@@ -1,31 +1,44 @@
 import React from "react";
-import Quality from "./quality";
+import Qualitie from "./qualitie";
 import BookMark from "./bookmark";
-
-const User = (props) => {
-  const user = props.user;
-  return (
-    <tr>
-      <td>{user.name}</td>
-      <td>
-        <Quality user={user.qualities} />
-      </td>
-      <td>{user.profession.name}</td>
-      <td>{user.completedMeetings}</td>
-      <td>{user.rate} /5</td>
-      <td>
-        <BookMark />
-      </td>
-      <td>
-        <button
-          onClick={() => props.onDelete(user._id)}
-          className="btn btn-danger"
-        >
-          delete
-        </button>
-      </td>
-    </tr>
-  );
+const User = ({
+    _id,
+    name,
+    qualities,
+    profession,
+    completedMeetings,
+    rate,
+    onDelete,
+    bookmark,
+    onToggleBookMark,
+}) => {
+    return (
+        <tr>
+            <td>{name}</td>
+            <td>
+                {qualities.map((qual) => (
+                    <Qualitie key={qual._id} {...qual} />
+                ))}
+            </td>
+            <td>{profession.name}</td>
+            <td>{completedMeetings}</td>
+            <td>{rate} /5</td>
+            <td>
+                <BookMark
+                    status={bookmark}
+                    onClick={() => onToggleBookMark(_id)}
+                />
+            </td>
+            <td>
+                <button
+                    onClick={() => onDelete(_id)}
+                    className="btn btn-danger"
+                >
+                    delete
+                </button>
+            </td>
+        </tr>
+    );
 };
 
 export default User;
