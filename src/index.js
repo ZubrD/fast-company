@@ -1,16 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import 'bootstrap/dist/css/bootstrap.css'
-import Users from './app/components/users';
-import App from './app/app';
+import "bootstrap/dist/css/bootstrap.css";
+import App from "./app/app";
 
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>     // Иначе выводы в консоли дублируются
+    // <React.StrictMode>     // Иначе выводы в консоли дублируются
     <App />
-  // </React.StrictMode>
+    // </React.StrictMode>
 );
 
 reportWebVitals();

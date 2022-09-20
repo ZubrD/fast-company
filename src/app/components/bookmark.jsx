@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const BookMark = ({ status, ...rest }) => {
     return (
@@ -8,5 +9,9 @@ const BookMark = ({ status, ...rest }) => {
     );
 };
 
-export default BookMark;
+BookMark.propTypes = {
+    status: PropTypes.boolean,
+    onClick: PropTypes.func
+};
 
+export default BookMark;
