@@ -48,15 +48,7 @@ const Users = ({ users, ...rest }) => {
 
 Users.propTypes = {
     users: PropTypes.arrayOf(
-        PropTypes.objectOf(
-            PropTypes.string,
-            PropTypes.string,
-            PropTypes.objectOf(PropTypes.number),
-            PropTypes.arrayOf(PropTypes.string),
-            PropTypes.number,
-            PropTypes.number,
-            PropTypes.boolean
-        )
+        PropTypes.object
     )
 };
 
