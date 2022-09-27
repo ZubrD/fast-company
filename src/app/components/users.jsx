@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import User from "./user";
@@ -8,18 +8,20 @@ import GroupList from "./groupList";
 
 const Users = ({ users: allUsers, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [professions, setProfessions] = useState(api.professions.fetchAll());
+    const [professions, setProfessions] = useState();
     const count = allUsers.length;
     const pageSize = 4;
+
+    useEffect(() => {
+        api.professions.fetchAll().then((data) => setProfessions(data));
+    }, []);
 
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
 
-    const handleProfessionSelect = (params) => {
-        console.log(params);
-    };
-    console.log(professions);
+    const handleProfessionSelect = (params) => {};
+
     const userCrop = paginate(allUsers, currentPage, pageSize);
     return (
         <>
