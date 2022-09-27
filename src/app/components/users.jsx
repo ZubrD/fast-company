@@ -2,20 +2,31 @@ import React, { useState } from "react";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import User from "./user";
+import api from "../api";
 import PropTypes from "prop-types";
+import GroupList from "./groupList";
 
-const Users = ({ users, ...rest }) => {
-    const count = users.length;
-    const pageSize = 4;
+const Users = ({ users: allUsers, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1);
+    const [professions, setProfessions] = useState(api.professions.fetchAll());
+    const count = allUsers.length;
+    const pageSize = 4;
 
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
 
-    const userCrop = paginate(users, currentPage, pageSize);
+    const handleProfessionSelect = (params) => {
+        console.log(params);
+    };
+    console.log(professions);
+    const userCrop = paginate(allUsers, currentPage, pageSize);
     return (
         <>
+            <GroupList
+                items={professions}
+                onItemSelect={handleProfessionSelect}
+            />
             {count > 0 && (
                 <table className="table">
                     <thead>
@@ -47,9 +58,7 @@ const Users = ({ users, ...rest }) => {
 };
 
 Users.propTypes = {
-    users: PropTypes.arrayOf(
-        PropTypes.object
-    )
+    users: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default Users;
