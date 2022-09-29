@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Pagination from "./pagination";
+import SearchStatus from "./searchStatus";
 import { paginate } from "../utils/paginate";
 import User from "./user";
 import api from "../api";
@@ -9,8 +10,9 @@ import GroupList from "./groupList";
 const Users = ({ users: allUsers, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
-    const count = allUsers.length;
-    const pageSize = 4;
+    const [selectedProf, SetSelectedProf] = useState();
+
+    const pageSize = 2;
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
@@ -20,15 +22,42 @@ const Users = ({ users: allUsers, ...rest }) => {
         setCurrentPage(pageIndex);
     };
 
-    const handleProfessionSelect = (params) => {};
+    const handleProfessionSelect = (item) => {
+        // console.log(item);
+        SetSelectedProf(item);
+    };
 
-    const userCrop = paginate(allUsers, currentPage, pageSize);
+    const filteredUsers = selectedProf
+        ? allUsers.filter((user) => user.profession === selectedProf)
+        : allUsers;
+    const count = filteredUsers.length;
+    const userCrop = paginate(filteredUsers, currentPage, pageSize);
+
+    const clearFilter = () => {
+        SetSelectedProf();
+    };
+
     return (
         <>
-            <GroupList
-                items={professions}
-                onItemSelect={handleProfessionSelect}
-            />
+            <SearchStatus length={count} />
+            {professions && (
+                <>
+                    <GroupList
+                        selectedItem={selectedProf}
+                        items={professions}
+                        onItemSelect={handleProfessionSelect}
+                        // valueProperty="_id"      // Эти значения перенесены в
+                        // contentProperty="name"   // GroupList.defaultProps
+                    />
+                    <button
+                        className="btn btn-secondary mt-2"
+                        onClick={clearFilter}
+                    >
+                        Очистить фильр
+                    </button>
+                </>
+            )}
+
             {count > 0 && (
                 <table className="table">
                     <thead>
