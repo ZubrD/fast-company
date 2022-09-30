@@ -13,9 +13,10 @@ const Users = ({ users: allUsers, ...rest }) => {
     const [selectedProf, SetSelectedProf] = useState();
 
     const pageSize = 4;
-
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfessions(data));
+        api.professions.fetchAll().then((data) => {
+            setProfessions(data);
+        });
     }, []);
 
     useEffect(() => {
@@ -27,12 +28,11 @@ const Users = ({ users: allUsers, ...rest }) => {
     };
 
     const handleProfessionSelect = (item) => {
-        // console.log(item);
         SetSelectedProf(item);
     };
 
     const filteredUsers = selectedProf
-        ? allUsers.filter((user) => user.profession === selectedProf)
+        ? allUsers.filter((user) => user.profession.name === selectedProf.name)
         : allUsers;
     const count = filteredUsers.length;
     const userCrop = paginate(filteredUsers, currentPage, pageSize);
