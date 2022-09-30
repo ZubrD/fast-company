@@ -12,7 +12,7 @@ const Users = ({ users: allUsers, ...rest }) => {
     const [professions, setProfessions] = useState();
     const [selectedProf, SetSelectedProf] = useState();
 
-    const pageSize = 2;
+    const pageSize = 4;
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfessions(data));
