@@ -41,7 +41,7 @@ const Users = ({ users: allUsers, ...rest }) => {
         ? allUsers.filter((user) => user.profession.name === selectedProf.name)
         : allUsers;
     const count = filteredUsers.length;
-    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]);
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
 
     const userCrop = paginate(sortedUsers, currentPage, pageSize); // данные на одной странице
 
