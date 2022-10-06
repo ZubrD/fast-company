@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TableHeader = ({ onSort, selectedSort, columns }) => {
+const TableHeader = ({ onSort, selectedSort, caretPosition, columns }) => {
     const handleSort = (item) => {
         if (selectedSort.path === item) {
             onSort({
@@ -12,6 +12,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
             onSort({ path: item, order: "asc" });
         }
     };
+
     return (
         <thead>
             <tr>
@@ -28,6 +29,15 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                         scope="col"
                     >
                         {columns[column].name}
+                        <span
+                            className={
+                                columns[column].path === caretPosition
+                                    ? selectedSort.order === "asc"
+                                        ? "bi bi-caret-down-fill"
+                                        : "bi bi-caret-up-fill"
+                                    : ""
+                            }
+                        ></span>
                     </th>
                 ))}
             </tr>
@@ -38,6 +48,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
 TableHeader.propTypes = {
     onSort: PropTypes.func.isRequired,
     selectedSort: PropTypes.object.isRequired,
+    caretPosition: PropTypes.string,
     columns: PropTypes.object.isRequired
 };
 

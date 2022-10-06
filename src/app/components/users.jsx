@@ -12,6 +12,7 @@ const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, SetSelectedProf] = useState();
+    const [caretPosition, setCaretPosition] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
     const pageSize = 8;
     const [users, setUsers] = useState();
@@ -53,6 +54,7 @@ const Users = () => {
 
     const handleSort = (item) => {
         setSortBy(item);
+        setCaretPosition(item.path);
     };
 
     const handleProfessionSelect = (item) => {
@@ -60,6 +62,13 @@ const Users = () => {
     };
 
     if (users) {
+        // const filteredUsers = selectedProf       //Eslint неправильно выставляет пробелы
+        // ? users.filter(                          // поэтому этот правильный вариант закомментировал
+        //     (user) =>
+        //         JSON.stringify(user.profession) ===
+        //         JSON.stringify(selectedProf)
+        // )
+        // : users;
         const filteredUsers = selectedProf
             ? users.filter((user) => user.profession.name === selectedProf.name)
             : users;
@@ -102,6 +111,7 @@ const Users = () => {
                             users={userCrop}
                             onSort={handleSort}
                             selectedSort={sortBy}
+                            caretPosition={caretPosition}
                             onDelete={handleDelete}
                             onToggleBookMark={handleToggleBookMark}
                         />
