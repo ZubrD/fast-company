@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TableHeader = ({ onSort, selectedSort, caretPosition, columns }) => {
+const TableHeader = ({ onSort, selectedSort, columns }) => {
     const handleSort = (item) => {
         if (selectedSort.path === item) {
             onSort({
@@ -11,6 +11,16 @@ const TableHeader = ({ onSort, selectedSort, caretPosition, columns }) => {
         } else {
             onSort({ path: item, order: "asc" });
         }
+    };
+    const renderSortArrow = (selectedSort, currentPath) => {
+        if (selectedSort.path === currentPath) {
+            if (selectedSort.order === "asc") {
+                return <i className="bi bi-caret-down-fill"></i>;
+            } else {
+                return <i className="bi bi-caret-up-fill"></i>;
+            }
+        }
+        return null;
     };
 
     return (
@@ -28,16 +38,8 @@ const TableHeader = ({ onSort, selectedSort, caretPosition, columns }) => {
                         {...{ role: columns[column].path && "button" }}
                         scope="col"
                     >
-                        {columns[column].name}
-                        <span
-                            className={
-                                columns[column].path === caretPosition
-                                    ? selectedSort.order === "asc"
-                                        ? "bi bi-caret-down-fill"
-                                        : "bi bi-caret-up-fill"
-                                    : ""
-                            }
-                        ></span>
+                        {columns[column].name}{" "}
+                        {renderSortArrow(selectedSort, columns[column].path)}
                     </th>
                 ))}
             </tr>
@@ -48,7 +50,6 @@ const TableHeader = ({ onSort, selectedSort, caretPosition, columns }) => {
 TableHeader.propTypes = {
     onSort: PropTypes.func.isRequired,
     selectedSort: PropTypes.object.isRequired,
-    caretPosition: PropTypes.string,
     columns: PropTypes.object.isRequired
 };
 

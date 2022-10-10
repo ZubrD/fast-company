@@ -8,7 +8,6 @@ const UserTable = ({
     users,
     onSort,
     selectedSort,
-    caretPosition,
     onToggleBookMark,
     onDelete,
     ...rest
@@ -50,7 +49,6 @@ const UserTable = ({
         <Table
             onSort={onSort}
             selectedSort={selectedSort}
-            caretPosition={caretPosition}
             columns={columns}
             data={users}
         />
@@ -61,7 +59,6 @@ UserTable.propTypes = {
     users: PropTypes.array.isRequired,
     onSort: PropTypes.func.isRequired,
     selectedSort: PropTypes.object.isRequired,
-    caretPosition: PropTypes.string,
     onToggleBookMark: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired
 };

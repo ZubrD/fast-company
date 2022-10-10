@@ -12,7 +12,6 @@ const Users = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, SetSelectedProf] = useState();
-    const [caretPosition, setCaretPosition] = useState();
     const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
     const pageSize = 8;
     const [users, setUsers] = useState();
@@ -54,7 +53,6 @@ const Users = () => {
 
     const handleSort = (item) => {
         setSortBy(item);
-        setCaretPosition(item.path);
     };
 
     const handleProfessionSelect = (item) => {
@@ -111,7 +109,6 @@ const Users = () => {
                             users={userCrop}
                             onSort={handleSort}
                             selectedSort={sortBy}
-                            caretPosition={caretPosition}
                             onDelete={handleDelete}
                             onToggleBookMark={handleToggleBookMark}
                         />
