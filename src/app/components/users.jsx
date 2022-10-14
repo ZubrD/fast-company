@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import GroupList from "./groupList";
 
 const Users = () => {
+    // console.log(pr.match.params);
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, SetSelectedProf] = useState();
