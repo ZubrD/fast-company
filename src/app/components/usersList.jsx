@@ -8,7 +8,7 @@ import api from "../api";
 import PropTypes from "prop-types";
 import GroupList from "./groupList";
 
-const Users = () => {
+const UsersList = () => {
     // console.log(pr.match.params);
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
@@ -129,8 +129,8 @@ const Users = () => {
     return "loading...";
 };
 
-Users.propTypes = {
+UsersList.propTypes = {
     users: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default Users;
+export default UsersList;
