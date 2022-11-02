@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import { validator } from "../../utils/validator";
+import { validator } from "../../utils/validator";
 import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
-import * as yup from "yup";
 
 const LoginForm = () => {
     const [data, setData] = useState({
@@ -18,61 +17,36 @@ const LoginForm = () => {
             [target.name]: target.value
         }));
     };
-    const validateScheme = yup.object().shape({
-        password: yup
-            .string()
-            .required("Пароль обязателен для заполенения")
-            .matches(
-                /(?=.*[A-Z])/,
-                "Пароль должен содержать хотя бы одну заглавную букву"
-            )
-            .matches(
-                /(?=.*[!@#$%^&*])/,
-                "Парольдолжен содержать один из специальных символов !@#$%^&*"
-            )
-            .matches(
-                /(?=.{8,})/,
-                "Пароль должен состоять как минимум из 8 символов"
-            ),
-        email: yup
-            .string()
-            .required("Электронная почта обязательна для заполенения")
-            .email("Email введён некорректно")
-    });
-    // const validatorConfig = {
-    //     email: {
-    //         isRequired: {
-    //             message: "Электронная почта обязательна для заполенения"
-    //         },
-    //         isEmail: {
-    //             message: "Email введён некорректно"
-    //         }
-    //     },
-    //     password: {
-    //         isRequired: { message: "Пароль обязателен для заполенения" },
-    //         isCapitalSymbol: {
-    //             message: "Пароль должен содержать хотя бы одну заглавную букву"
-    //         },
-    //         isContainDigit: {
-    //             message: "Пароль должен содержать хотя бы одно число"
-    //         },
-    //         min: {
-    //             message: "Пароль должен состоять как минимум из 8 символов",
-    //             value: 8
-    //         }
-    //     }
-    // };
+    const validatorConfig = {
+        email: {
+            isRequired: {
+                message: "Электронная почта обязательна для заполенения"
+            },
+            isEmail: {
+                message: "Email введён некорректно"
+            }
+        },
+        password: {
+            isRequired: { message: "Пароль обязателен для заполенения" },
+            isCapitalSymbol: {
+                message: "Пароль должен содержать хотя бы одну заглавную букву"
+            },
+            isContainDigit: {
+                message: "Пароль должен содержать хотя бы одно число"
+            },
+            min: {
+                message: "Пароль должен состоять как минимум из 8 символов",
+                value: 8
+            }
+        }
+    };
     useEffect(() => {
         validate();
     }, [data]);
 
     const validate = () => {
-        // const errors = validator(data, validatorConfig);
-        validateScheme
-            .validate(data)
-            .then(() => setErrors({}))
-            .catch((err) => setErrors({ [err.path]: err.message }));
-        // setErrors(errors);
+        const errors = validator(data, validatorConfig);
+        setErrors(errors);
         return Object.keys(errors).length === 0;
     };
 
